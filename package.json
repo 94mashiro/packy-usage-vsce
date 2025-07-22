@@ -1,7 +1,7 @@
 {
   "name": "packy-usage",
-  "displayName": "Packy Usage",
-  "description": "实时监控API预算使用情况，跟踪每日和每月的API消费",
+  "displayName": "%displayName%",
+  "description": "%description%",
   "version": "1.0.1",
   "publisher": "MashiroWang",
   "pricing": "Free",
@@ -34,6 +34,7 @@
   "engines": {
     "vscode": "^1.54.0"
   },
+  "l10n": "./l10n",
   "categories": [
     "Other",
     "Visualization"
@@ -46,34 +47,34 @@
     "commands": [
       {
         "command": "packy-usage.setToken",
-        "title": "Set API Token",
+        "title": "%command.setToken.title%",
         "category": "Packy Usage"
       },
       {
         "command": "packy-usage.refresh",
-        "title": "Refresh Budget Data",
+        "title": "%command.refresh.title%",
         "category": "Packy Usage",
         "icon": "$(refresh)"
       },
       {
         "command": "packy-usage.showExplorer",
-        "title": "Show Usage Explorer",
+        "title": "%command.showExplorer.title%",
         "category": "Packy Usage"
       }
     ],
     "configuration": {
-      "title": "Packy Usage",
+      "title": "%config.title%",
       "properties": {
         "packy-usage.apiToken": {
           "type": "string",
           "default": "",
-          "description": "API Token for budget data access",
+          "description": "%config.apiToken.description%",
           "scope": "application"
         },
         "packy-usage.apiEndpoint": {
           "type": "string",
           "default": "https://www.packycode.com/api/backend/users/info",
-          "description": "API endpoint for budget data",
+          "description": "%config.apiEndpoint.description%",
           "scope": "application"
         }
       }
@@ -82,7 +83,7 @@
       "activitybar": [
         {
           "id": "packy-usage",
-          "title": "Packy Usage",
+          "title": "%view.container.title%",
           "icon": "$(package)"
         }
       ]
@@ -91,7 +92,7 @@
       "packy-usage": [
         {
           "id": "packy-usage.explorer",
-          "name": "Usage Explorer",
+          "name": "%view.explorer.name%",
           "when": "true"
         }
       ]
@@ -114,7 +115,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "test": "vscode-test",
-    "package": "vsce package --allow-missing-repository"
+    "package": "pnpm vsce package --no-dependencies --allow-missing-repository"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
@@ -123,6 +124,7 @@
     "@types/vscode": "^1.54.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/l10n-dev": "^0.0.35",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.6.0",

@@ -50,26 +50,39 @@ export class ErrorHandler {
   private static handleAppError(error: AppError): void {
     switch (error.type) {
       case ErrorType.API_ERROR:
-        vscode.window.showErrorMessage(`API请求失败: ${error.message}`)
+        vscode.window.showErrorMessage(
+          vscode.l10n.t("API request failed: {0}", error.message)
+        )
         break
       case ErrorType.AUTH_ERROR:
         vscode.window.showErrorMessage(
-          `认证失败: ${error.message}。请检查API Token是否正确。`
+          vscode.l10n.t(
+            "Authentication failed: {0}. Please check if the API Token is correct.",
+            error.message
+          )
         )
         break
       case ErrorType.NETWORK_ERROR:
-        vscode.window.showErrorMessage(`网络连接错误: ${error.message}`)
+        vscode.window.showErrorMessage(
+          vscode.l10n.t("Network connection error: {0}", error.message)
+        )
         break
       case ErrorType.VALIDATION_ERROR:
-        vscode.window.showWarningMessage(`输入验证失败: ${error.message}`)
+        vscode.window.showWarningMessage(
+          vscode.l10n.t("Input validation failed: {0}", error.message)
+        )
         break
       default:
-        vscode.window.showErrorMessage(`未知错误: ${error.message}`)
+        vscode.window.showErrorMessage(
+          vscode.l10n.t("Unknown error: {0}", error.message)
+        )
         break
     }
   }
 
   private static handleUnknownError(error: Error): void {
-    vscode.window.showErrorMessage(`未知错误: ${error.message}`)
+    vscode.window.showErrorMessage(
+      vscode.l10n.t("Unknown error: {0}", error.message)
+    )
   }
 }

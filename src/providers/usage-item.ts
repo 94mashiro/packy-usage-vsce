@@ -36,27 +36,29 @@ export class UsageItem extends vscode.TreeItem {
   private getTooltip(): string {
     switch (this.contextValue) {
       case "dailyBudget":
-        return "今日预算使用情况"
+        return vscode.l10n.t("Today's budget usage")
       case "dailyPercentage":
-        return "今日预算使用百分比"
+        return vscode.l10n.t("Today's budget usage percentage")
       case "dailyTotal":
-        return "今日总预算金额"
+        return vscode.l10n.t("Today's total budget amount")
       case "dailyUsed":
-        return "今日已使用的预算金额"
+        return vscode.l10n.t("Today's used budget amount")
       case "monthlyBudget":
-        return "本月预算使用情况"
+        return vscode.l10n.t("This month's budget usage")
       case "monthlyPercentage":
-        return "本月预算使用百分比"
+        return vscode.l10n.t("This month's budget usage percentage")
       case "monthlyTotal":
-        return "本月总预算金额"
+        return vscode.l10n.t("This month's total budget amount")
       case "monthlyUsed":
-        return "本月已使用的预算金额"
+        return vscode.l10n.t("This month's used budget amount")
       case "noData":
-        return "点击刷新获取最新预算数据"
+        return vscode.l10n.t("Click refresh to get the latest budget data")
       case "noToken":
-        return "需要配置API Token才能获取预算数据"
+        return vscode.l10n.t(
+          "API Token needs to be configured to get budget data"
+        )
       case "setToken":
-        return "点击设置API Token"
+        return vscode.l10n.t("Click to configure API Token")
       default:
         return this.label
     }

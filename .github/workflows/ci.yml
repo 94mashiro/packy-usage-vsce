@@ -39,5 +39,4 @@ jobs:
         
       - name: Test package creation
         run: |
-          pnpm add -g @vscode/vsce
-          vsce package --allow-missing-repository
+          pnpm run package

@@ -44,11 +44,19 @@ export class ApiService {
           // 认证失败可能是Token过期，触发Token清理
           await this.handleAuthFailure()
           throw ErrorHandler.createAuthError(
-            `认证失败 (${response.status}): ${response.statusText}`
+            vscode.l10n.t(
+              "Authentication failed ({0}): {1}",
+              response.status,
+              response.statusText
+            )
           )
         }
         throw ErrorHandler.createApiError(
-          `API请求失败 (${response.status}): ${response.statusText}`
+          vscode.l10n.t(
+            "API request failed ({0}): {1}",
+            response.status,
+            response.statusText
+          )
         )
       }
 
@@ -57,10 +65,16 @@ export class ApiService {
     } catch (error) {
       if (error instanceof Error) {
         if (error.name === "AbortError") {
-          throw ErrorHandler.createNetworkError("请求超时", error)
+          throw ErrorHandler.createNetworkError(
+            vscode.l10n.t("Request timeout"),
+            error
+          )
         }
         if (error.message.includes("fetch")) {
-          throw ErrorHandler.createNetworkError("网络连接失败", error)
+          throw ErrorHandler.createNetworkError(
+            vscode.l10n.t("Network connection failed"),
+            error
+          )
         }
       }
       throw error

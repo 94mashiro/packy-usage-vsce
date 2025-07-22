@@ -1,3 +1,5 @@
+import * as vscode from "vscode"
+
 import { ErrorHandler } from "../utils/error-handler"
 import { ApiService } from "./api.service"
 import { DataService } from "./data.service"
@@ -28,7 +30,7 @@ export class PollingService {
       } catch (error) {
         ErrorHandler.handle(error as Error)
         // 轮询失败时更新状态栏
-        this.statusBarService.showErrorStatus("数据同步失败")
+        this.statusBarService.showErrorStatus(vscode.l10n.t("Data sync failed"))
       }
     }, this.pollingInterval)
   }
