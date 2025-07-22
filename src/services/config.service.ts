@@ -85,12 +85,12 @@ export class ConfigService {
    */
   getConfigSummary(): string {
     const config = this.getConfig()
-    return `配置摘要:
-- API端点: ${config.apiEndpoint}
-- 轮询间隔: ${config.pollingInterval}ms
-- 启用轮询: ${config.enablePolling}
-- 状态栏刷新: ${config.statusBarRefreshInterval}ms
-- Token配置: ${config.apiToken ? "已配置" : "未配置"}`
+    return `${vscode.l10n.t("Configuration Summary")}:
+- API ${vscode.l10n.t("Endpoint")}: ${config.apiEndpoint}
+- ${vscode.l10n.t("Polling Interval")}: ${config.pollingInterval}ms
+- ${vscode.l10n.t("Enable Polling")}: ${config.enablePolling}
+- ${vscode.l10n.t("Status Bar Refresh")}: ${config.statusBarRefreshInterval}ms
+- Token ${vscode.l10n.t("Status")}: ${config.apiToken ? vscode.l10n.t("Configured") : vscode.l10n.t("Not Configured")}`
   }
 
   /**
@@ -189,17 +189,23 @@ export class ConfigService {
 
     // 验证 API 端点
     if (!config.apiEndpoint || !this.isValidUrl(config.apiEndpoint)) {
-      errors.push("API 端点地址无效")
+      errors.push(vscode.l10n.t("Invalid API endpoint address"))
     }
 
     // 验证轮询间隔
     if (config.pollingInterval < 5000) {
-      errors.push("轮询间隔不能少于5秒")
+      errors.push(
+        vscode.l10n.t("Polling interval cannot be less than 5 seconds")
+      )
     }
 
     // 验证状态栏刷新间隔
     if (config.statusBarRefreshInterval < 100) {
-      errors.push("状态栏刷新间隔不能少于100毫秒")
+      errors.push(
+        vscode.l10n.t(
+          "Status bar refresh interval cannot be less than 100 milliseconds"
+        )
+      )
     }
 
     return {

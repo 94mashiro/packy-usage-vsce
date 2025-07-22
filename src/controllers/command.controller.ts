@@ -70,11 +70,13 @@ export class CommandController {
         this.dataService.updateData(data)
       } else {
         this.statusBarService.showNoTokenStatus()
-        vscode.window.showWarningMessage("Please configure API Token first")
+        vscode.window.showWarningMessage(
+          vscode.l10n.t("Please configure API Token first")
+        )
       }
     } catch (error) {
       ErrorHandler.handle(error as Error)
-      this.statusBarService.showErrorStatus("数据获取失败")
+      this.statusBarService.showErrorStatus(vscode.l10n.t("Data fetch failed"))
     }
   }
 
@@ -91,8 +93,8 @@ export class CommandController {
   private async handleSetToken(): Promise<void> {
     const token = await vscode.window.showInputBox({
       password: true,
-      placeHolder: "API Token for budget data access",
-      prompt: "Enter your API Token",
+      placeHolder: vscode.l10n.t("API Token for budget data access"),
+      prompt: vscode.l10n.t("Enter your API Token"),
       validateInput: (value) => this.validateTokenInput(value)
     })
 
@@ -106,11 +108,11 @@ export class CommandController {
       // 显示Token过期时间信息
       const expiration = this.secretService.getTokenExpiration(token)
       const expirationText = expiration
-        ? `，将于 ${expiration.toLocaleString()} 过期`
+        ? vscode.l10n.t("will expire at {0}", expiration.toLocaleString())
         : ""
 
       vscode.window.showInformationMessage(
-        `API Token保存成功${expirationText}！`
+        vscode.l10n.t("API Token saved successfully{0}!", expirationText)
       )
 
       // 刷新视图和数据
@@ -118,7 +120,7 @@ export class CommandController {
       await this.fetchAndUpdateData()
     } catch (error) {
       vscode.window.showErrorMessage(
-        `保存Token失败: ${(error as Error).message}`
+        vscode.l10n.t("Failed to save Token: {0}", (error as Error).message)
       )
     }
   }
@@ -135,18 +137,20 @@ export class CommandController {
    */
   private async showTokenSetupPrompt(): Promise<void> {
     const choice = await vscode.window.showInformationMessage(
-      "需要配置 API Token 来获取预算数据",
-      "立即配置",
-      "稍后配置"
+      vscode.l10n.t("You need to configure an API Token to get budget data"),
+      vscode.l10n.t("Configure Now"),
+      vscode.l10n.t("Configure Later")
     )
 
     switch (choice) {
-      case "稍后配置":
+      case vscode.l10n.t("Configure Later"):
         vscode.window.showInformationMessage(
-          '您可以随时通过命令面板搜索 "Set API Token" 来配置。'
+          vscode.l10n.t(
+            'You can configure it later by searching for "Set API Token" in the command palette.'
+          )
         )
         break
-      case "立即配置":
+      case vscode.l10n.t("Configure Now"):
         vscode.commands.executeCommand("packy-usage.setToken")
         break
     }
@@ -157,17 +161,19 @@ export class CommandController {
    */
   private validateTokenInput(value: string): null | string {
     if (!value || value.trim().length === 0) {
-      return "Token cannot be empty"
+      return vscode.l10n.t("Token cannot be empty")
     }
 
     if (value.length < 10) {
-      return "Token seems too short"
+      return vscode.l10n.t("Token seems too short")
     }
 
     // 检查JWT格式
     const parts = value.split(".")
     if (parts.length !== 3) {
-      return "Token格式无效，请确保是有效的JWT Token"
+      return vscode.l10n.t(
+        "Invalid token format, please ensure it's a valid JWT Token"
+      )
     }
 
     // 检查是否已过期
@@ -182,11 +188,14 @@ export class CommandController {
         const currentTime = Math.floor(Date.now() / 1000)
         if (currentTime >= parsedPayload.exp) {
           const expiredDate = new Date(parsedPayload.exp * 1000)
-          return `Token已过期（过期时间: ${expiredDate.toLocaleString()}）`
+          return vscode.l10n.t(
+            "Token has expired (expiration: {0})",
+            expiredDate.toLocaleString()
+          )
         }
       }
     } catch {
-      return "Token格式无效，无法解析"
+      return vscode.l10n.t("Invalid token format, cannot parse")
     }
 
     return null

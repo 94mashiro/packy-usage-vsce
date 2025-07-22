@@ -1,0 +1,12 @@
+{
+  "displayName": "Packy Usage",
+  "description": "实时监控API预算使用情况，跟踪每日和每月的API消费",
+  "command.setToken.title": "设置 API Token",
+  "command.refresh.title": "刷新预算数据",
+  "command.showExplorer.title": "显示使用情况浏览器",
+  "config.title": "Packy Usage",
+  "config.apiToken.description": "用于访问预算数据的 API Token",
+  "config.apiEndpoint.description": "预算数据的 API 端点",
+  "view.container.title": "Packy Usage",
+  "view.explorer.name": "使用情况浏览器"
+}
