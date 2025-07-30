@@ -59,6 +59,11 @@
         "command": "packy-usage.showExplorer",
         "title": "Show Usage Explorer",
         "category": "Packy Usage"
+      },
+      {
+        "command": "packy-usage.toggleSidebar",
+        "title": "Toggle Sidebar",
+        "category": "Packy Usage"
       }
     ],
     "configuration": {
@@ -74,6 +79,12 @@
           "type": "string",
           "default": "https://www.packycode.com/api/backend/users/info",
           "description": "API endpoint for budget data",
+          "scope": "application"
+        },
+        "packy-usage.showSidebar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show or hide the Packy Usage sidebar panel",
           "scope": "application"
         }
       }
@@ -92,7 +103,7 @@
         {
           "id": "packy-usage.explorer",
           "name": "Usage Explorer",
-          "when": "true"
+          "when": "config.packy-usage.showSidebar"
         }
       ]
     },

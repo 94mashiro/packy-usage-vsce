@@ -54,6 +54,9 @@ export class CommandController {
       ),
       vscode.commands.registerCommand("packy-usage.showExplorer", () =>
         this.handleShowExplorer()
+      ),
+      vscode.commands.registerCommand("packy-usage.toggleSidebar", () =>
+        this.handleToggleSidebar()
       )
     ]
   }
@@ -172,6 +175,21 @@ export class CommandController {
    */
   private handleShowExplorer(): void {
     vscode.commands.executeCommand("packy-usage.explorer.focus")
+  }
+
+  /**
+   * 处理切换侧边栏显示状态命令
+   */
+  private async handleToggleSidebar(): Promise<void> {
+    try {
+      const newVisible = await this.configService.toggleSidebarVisible()
+      const message = newVisible ? "侧边栏已显示" : "侧边栏已隐藏"
+      vscode.window.showInformationMessage(message)
+    } catch (error) {
+      vscode.window.showErrorMessage(
+        `切换侧边栏状态失败: ${(error as Error).message}`
+      )
+    }
   }
 
   /**
