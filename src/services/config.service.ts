@@ -14,6 +14,8 @@ export interface PluginConfig {
   pollingInterval: number
   /** 状态栏刷新间隔（毫秒） */
   statusBarRefreshInterval: number
+  /** 是否显示侧边栏 */
+  showSidebar: boolean
 }
 
 /**
@@ -30,7 +32,8 @@ export class ConfigService {
     apiEndpoint: "https://www.packycode.com/api/backend/users/info",
     enablePolling: true,
     pollingInterval: 30000, // 30秒
-    statusBarRefreshInterval: 1000 // 1秒
+    statusBarRefreshInterval: 1000, // 1秒
+    showSidebar: true
   }
 
   /**
@@ -76,6 +79,10 @@ export class ConfigService {
       statusBarRefreshInterval: config.get<number>(
         "statusBarRefreshInterval",
         ConfigService.DEFAULT_CONFIG.statusBarRefreshInterval
+      ),
+      showSidebar: config.get<boolean>(
+        "showSidebar",
+        ConfigService.DEFAULT_CONFIG.showSidebar
       )
     }
   }
@@ -90,6 +97,7 @@ export class ConfigService {
 - 轮询间隔: ${config.pollingInterval}ms
 - 启用轮询: ${config.enablePolling}
 - 状态栏刷新: ${config.statusBarRefreshInterval}ms
+- 侧边栏显示: ${config.showSidebar}
 - Token配置: ${config.apiToken ? "已配置" : "未配置"}`
   }
 
@@ -124,6 +132,15 @@ export class ConfigService {
     return vscode.workspace
       .getConfiguration(ConfigService.CONFIG_SECTION)
       .get<boolean>("enablePolling", ConfigService.DEFAULT_CONFIG.enablePolling)
+  }
+
+  /**
+   * 获取是否显示侧边栏
+   */
+  isSidebarVisible(): boolean {
+    return vscode.workspace
+      .getConfiguration(ConfigService.CONFIG_SECTION)
+      .get<boolean>("showSidebar", ConfigService.DEFAULT_CONFIG.showSidebar)
   }
 
   /**
@@ -167,6 +184,11 @@ export class ConfigService {
         "statusBarRefreshInterval",
         ConfigService.DEFAULT_CONFIG.statusBarRefreshInterval,
         vscode.ConfigurationTarget.Global
+      ),
+      config.update(
+        "showSidebar",
+        ConfigService.DEFAULT_CONFIG.showSidebar,
+        vscode.ConfigurationTarget.Global
       )
     ])
   }
@@ -178,6 +200,25 @@ export class ConfigService {
     await vscode.workspace
       .getConfiguration(ConfigService.CONFIG_SECTION)
       .update("apiToken", token, vscode.ConfigurationTarget.Global)
+  }
+
+  /**
+   * 设置侧边栏显示状态
+   */
+  async setSidebarVisible(visible: boolean): Promise<void> {
+    await vscode.workspace
+      .getConfiguration(ConfigService.CONFIG_SECTION)
+      .update("showSidebar", visible, vscode.ConfigurationTarget.Global)
+  }
+
+  /**
+   * 切换侧边栏显示状态
+   */
+  async toggleSidebarVisible(): Promise<boolean> {
+    const currentVisible = this.isSidebarVisible()
+    const newVisible = !currentVisible
+    await this.setSidebarVisible(newVisible)
+    return newVisible
   }
 
   /**
