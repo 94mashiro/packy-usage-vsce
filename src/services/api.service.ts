@@ -1,14 +1,19 @@
+import { fetch, ProxyAgent } from "undici"
 import * as vscode from "vscode"
 
 import { ApiResponse, BudgetData } from "../models/budget.model"
 import { ErrorHandler } from "../utils/error-handler"
+import { ConfigService } from "./config.service"
 import { SecretService } from "./secret.service"
 
 export class ApiService {
   private config: vscode.WorkspaceConfiguration
   private readonly REQUEST_TIMEOUT = 10000 // 10 seconds
 
-  constructor(private secretService: SecretService) {
+  constructor(
+    private secretService: SecretService,
+    private configService: ConfigService
+  ) {
     this.config = vscode.workspace.getConfiguration("packy-usage")
   }
 
@@ -27,14 +32,23 @@ export class ApiService {
         this.REQUEST_TIMEOUT
       )
 
-      const response = await fetch(endpoint, {
+      // 配置代理
+      const proxyUrl = this.configService.getProxyUrl()
+      const fetchOptions: Parameters<typeof fetch>[1] = {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
         method: "GET",
         signal: controller.signal
-      })
+      }
+
+      // 如果配置了代理，则使用 ProxyAgent
+      if (proxyUrl) {
+        fetchOptions.dispatcher = new ProxyAgent(proxyUrl)
+      }
+
+      const response = await fetch(endpoint, fetchOptions)
 
       clearTimeout(timeoutId)
 

@@ -2,7 +2,7 @@
   "name": "packy-usage",
   "displayName": "Packy Usage",
   "description": "实时监控API预算使用情况，跟踪每日和每月的API消费",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "MashiroWang",
   "pricing": "Free",
   "author": {
@@ -75,6 +75,12 @@
           "default": "https://www.packycode.com/api/backend/users/info",
           "description": "API endpoint for budget data",
           "scope": "application"
+        },
+        "packy-usage.proxy": {
+          "type": "string",
+          "default": "",
+          "description": "要使用的代理设置。如果未设置，则将从http_proxy和https_proxy环境变量继承",
+          "scope": "application"
         }
       }
     },
@@ -132,5 +138,8 @@
     "eslint-plugin-prettier": "^5.5.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.36.0"
+  },
+  "dependencies": {
+    "undici": "^6.19.8"
   }
 }

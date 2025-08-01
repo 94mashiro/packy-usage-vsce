@@ -119,7 +119,7 @@ export class ExtensionManager {
     this.dataService = new DataService()
     this.statusBarService = new StatusBarService()
     this.secretService = new SecretService(context)
-    this.apiService = new ApiService(this.secretService)
+    this.apiService = new ApiService(this.secretService, this.configService)
 
     // 初始化轮询服务（使用配置的轮询间隔）
     const config = this.configService.getConfig()

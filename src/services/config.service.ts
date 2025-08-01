@@ -12,6 +12,8 @@ export interface PluginConfig {
   enablePolling: boolean
   /** 轮询间隔（毫秒） */
   pollingInterval: number
+  /** HTTP 代理地址 */
+  proxy: string
   /** 状态栏刷新间隔（毫秒） */
   statusBarRefreshInterval: number
 }
@@ -30,6 +32,7 @@ export class ConfigService {
     apiEndpoint: "https://www.packycode.com/api/backend/users/info",
     enablePolling: true,
     pollingInterval: 30000, // 30秒
+    proxy: "", // 默认不使用代理
     statusBarRefreshInterval: 1000 // 1秒
   }
 
@@ -73,6 +76,7 @@ export class ConfigService {
         "pollingInterval",
         ConfigService.DEFAULT_CONFIG.pollingInterval
       ),
+      proxy: config.get<string>("proxy", ConfigService.DEFAULT_CONFIG.proxy),
       statusBarRefreshInterval: config.get<number>(
         "statusBarRefreshInterval",
         ConfigService.DEFAULT_CONFIG.statusBarRefreshInterval
@@ -103,6 +107,29 @@ export class ConfigService {
         "pollingInterval",
         ConfigService.DEFAULT_CONFIG.pollingInterval
       )
+  }
+
+  /**
+   * 获取代理配置
+   * 优先使用配置的代理，然后回退到环境变量
+   */
+  getProxyUrl(): string | undefined {
+    // 首先尝试获取配置的代理
+    const configuredProxy = vscode.workspace
+      .getConfiguration(ConfigService.CONFIG_SECTION)
+      .get<string>("proxy", "")
+
+    if (configuredProxy && configuredProxy.trim()) {
+      return configuredProxy.trim()
+    }
+
+    // 回退到环境变量
+    return (
+      process.env.HTTPS_PROXY ||
+      process.env.HTTP_PROXY ||
+      process.env.https_proxy ||
+      process.env.http_proxy
+    )
   }
 
   /**
