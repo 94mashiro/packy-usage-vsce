@@ -57,6 +57,10 @@ export class UsageItem extends vscode.TreeItem {
         return vscode.l10n.t(
           "API Token needs to be configured to get budget data"
         )
+      case "opusStatus":
+        return vscode.l10n.t(
+          "Shows whether the Opus model is available for your account"
+        )
       case "setToken":
         return vscode.l10n.t("Click to configure API Token")
       default:

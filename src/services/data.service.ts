@@ -23,6 +23,9 @@ export class DataService {
       percentage: 0,
       total: 0,
       used: 0
+    },
+    opus: {
+      enabled: false
     }
   }
 

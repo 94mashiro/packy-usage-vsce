@@ -110,5 +110,9 @@
   "Token: ": "Token: ",
   "Configured (API Token)": "Configured (API Token)",
   "Configured (JWT Token)": "Configured (JWT Token)",
-  "Set Token": "Set Token"
+  "Set Token": "Set Token",
+  "Opus Model: {0}": "Opus Model: {0}",
+  "Enabled": "Enabled",
+  "Disabled": "Disabled",
+  "Shows whether the Opus model is available for your account": "Shows whether the Opus model is available for your account"
 }

@@ -115,6 +115,8 @@ export class ApiService {
     const monthlyPercentage =
       monthlyBudget > 0 ? (monthlySpent / monthlyBudget) * 100 : 0
 
+    const opusEnabled = Boolean(data.opus_enabled)
+
     return {
       daily: {
         percentage: dailyPercentage,
@@ -125,6 +127,9 @@ export class ApiService {
         percentage: monthlyPercentage,
         total: monthlyBudget,
         used: monthlySpent
+      },
+      opus: {
+        enabled: opusEnabled
       }
     }
   }

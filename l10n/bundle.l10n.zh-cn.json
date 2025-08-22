@@ -102,7 +102,7 @@
   "JWT Token saved successfully{0}!": "JWT Token保存成功{0}！",
   "You need to configure an access token to get budget data": "需要配置访问令牌来获取预算数据",
   "View Help": "查看帮助",
-  "### Token Acquisition Methods\n\n**API Token (Recommended)**\n- Permanently valid access token\n- Get API Token starting with 'sk-' directly from PackyCode Dashboard\n\n**JWT Token**\n- Temporary token from PackyCode Dashboard\n- Acquisition steps:\n  1. Visit PackyCode Dashboard\n  2. Open browser developer tools (press F12 or right-click and select \"Inspect\")\n  3. Switch to \"Application\" or \"Storage\" tab\n  4. Find \"Cookies\" in the left panel and expand it\n  5. Select the current website domain\n  6. Find the cookie named \"token\" in the right list\n  7. Copy its value as your JWT Token": "### Token获取方式\n\n**API Token (推荐)**\n- 永久有效的访问令牌\n- 到PackyCode Dashboard直接获取以'sk-'开头的API Token\n\n**JWT Token**\n- 从PackyCode Dashboard获取的临时令牌\n- 获取步骤：\n  1. 访问PackyCode Dashboard\n  2. 打开浏览器开发者工具（按F12或右键选择"检查"）\n  3. 切换到"Application"或"Storage"选项卡\n  4. 在左侧找到"Cookies"并展开\n  5. 选择当前网站域名\n  6. 在右侧列表中找到名为"token"的Cookie\n  7. 复制其值作为您的JWT Token",
+  "### Token Acquisition Methods\n\n**API Token (Recommended)**\n- Permanently valid access token\n- Get API Token starting with 'sk-' directly from PackyCode Dashboard\n\n**JWT Token**\n- Temporary token from PackyCode Dashboard\n- Acquisition steps:\n  1. Visit PackyCode Dashboard\n  2. Open browser developer tools (press F12 or right-click and select \"Inspect\")\n  3. Switch to \"Application\" or \"Storage\" tab\n  4. Find \"Cookies\" in the left panel and expand it\n  5. Select the current website domain\n  6. Find the cookie named \"token\" in the right list\n  7. Copy its value as your JWT Token": "### Token获取方式\n\n**API Token (推荐)**\n- 永久有效的访问令牌\n- 到PackyCode Dashboard直接获取以'sk-'开头的API Token\n\n**JWT Token**\n- 从PackyCode Dashboard获取的临时令牌\n- 获取步骤：\n  1. 访问PackyCode Dashboard\n  2. 打开浏览器开发者工具（按F12或右键选择\\\"检查\\\"）\n  3. 切换到\\\"Application\\\"或\\\"Storage\\\"选项卡\n  4. 在左侧找到\\\"Cookies\\\"并展开\n  5. 选择当前网站域名\n  6. 在右侧列表中找到名为\\\"token\\\"的Cookie\n  7. 复制其值作为您的JWT Token",
   "JWT Token has expired (expiration: {0})": "JWT Token已过期（过期时间: {0}）",
   "Invalid JWT Token format": "JWT Token格式无效",
   "Unrecognized Token format, please provide API Token (sk-) or JWT Token": "无法识别的Token格式，请提供API Token (sk-开头) 或 JWT Token",
@@ -110,5 +110,9 @@
   "Token: ": "Token: ",
   "Configured (API Token)": "已配置 (API Token)",
   "Configured (JWT Token)": "已配置 (JWT Token)",
-  "Set Token": "设置 Token"
+  "Set Token": "设置 Token",
+  "Opus Model: {0}": "Opus 模型: {0}",
+  "Enabled": "已启用",
+  "Disabled": "未启用",
+  "Shows whether the Opus model is available for your account": "显示您的账户是否可用 Opus 模型"
 }

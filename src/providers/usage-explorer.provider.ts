@@ -73,6 +73,17 @@ export class UsageExplorerProvider
 
       return [
         new UsageItem(
+          vscode.l10n.t(
+            "Opus Model: {0}",
+            this.dataService.currentData.opus.enabled
+              ? vscode.l10n.t("Enabled")
+              : vscode.l10n.t("Disabled")
+          ),
+          vscode.TreeItemCollapsibleState.None,
+          "opusStatus",
+          this.dataService.currentData.opus.enabled ? "$(check)" : "$(x)"
+        ),
+        new UsageItem(
           vscode.l10n.t("Daily Budget"),
           vscode.TreeItemCollapsibleState.Expanded,
           "dailyBudget",

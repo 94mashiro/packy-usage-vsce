@@ -4,6 +4,7 @@ export interface ApiResponse {
   daily_spent_usd?: number
   monthly_budget_usd?: number
   monthly_spent_usd?: number
+  opus_enabled?: boolean
 }
 
 export interface BudgetData {
@@ -16,5 +17,8 @@ export interface BudgetData {
     percentage: number
     total: number
     used: number
+  }
+  opus: {
+    enabled: boolean
   }
 }
